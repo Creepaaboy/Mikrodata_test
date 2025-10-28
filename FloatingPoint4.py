@@ -299,7 +299,7 @@ class FloatQuizApp:
         S1, E1, F1 = gen_1_1_bits()
         val1 = make_float_from_bits(S1, E1, F1)
         s_sign, d_first, m_frac, e10, formatted = decimal_scientific_components(val1, 6)
-        self.s1_bits_label.config(text=f"Given bits: S={S1}, E={E1} (dec), F={F1:023b}")
+        self.s1_bits_label.config(text=f"Given bits: S={S1}, E={E1} (dec), F={F1 >> 17:06b}...0")
         idx = 0
         self.entries[idx]['corr'] = str(s_sign)
         self.entries[idx+1]['corr'] = str(d_first)
@@ -314,7 +314,9 @@ class FloatQuizApp:
         B = make_float_from_bits(sB, EB, FB)
         R = struct.unpack(">f", struct.pack(">f", A * B))[0]
         sR, ER, FR = float_to_bits(R)
-        self.s2_bits_label.config(text=f"A: S={sA} E={EA} F={FA:023b}\nB: S={sB} E={EB} F={FB:023b}")
+        self.s2_bits_label.config(
+        text=f"A: S={sA} E={EA} F={FA >> 17:06b}...0\n"
+             f"B: S={sB} E={EB} F={FB >> 17:06b}...0")
         idx = 4
         self.entries[idx]['corr'] = str(sR)
         self.entries[idx+1]['corr'] = str(ER)
@@ -330,7 +332,9 @@ class FloatQuizApp:
         B2 = make_float_from_bits(sB2, EB2, FB2)
         R2 = struct.unpack(">f", struct.pack(">f", A2 + B2))[0]
         sR2, ER2, FR2 = float_to_bits(R2)
-        self.s3_bits_label.config(text=f"A: S={sA2} E={EA2} F={FA2:023b}\nB: S={sB2} E={EB2} F={FB2:023b}")
+        self.s3_bits_label.config(
+        text=f"A: S={sA2} E={EA2} F={FA2 >> 17:06b}...0\n"
+             f"B: S={sB2} E={EB2} F={FB2 >> 17:06b}...0")
         idx = 7
         self.entries[idx]['corr'] = str(sR2)
         self.entries[idx+1]['corr'] = str(ER2)
